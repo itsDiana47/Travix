@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travix — Become a Traveler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="becomeTraveler.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Travix home">
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 4.6L19 8l-4.9 2.8L12 15l-2.1-4.2L5 8l5.1-1.4L12 2z" fill="#e3b73a"/></svg>
+        <span class="brand-text">TRAVIX</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">How it Works</a></li>
+          <li><a href="#">Calculator</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="link-muted" href="#">Log In</a>
+        <a class="btn primary" href="#">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main" role="main">
+    <h1 class="page-title">Become a Traveler</h1>
+    <p class="page-sub">Share your trip details and earn money by delivering items to travelers along your route</p>
+
+    <form id="tripForm" class="form-stack" novalidate>
+      <!-- Trip Details -->
+      <section class="card" aria-labelledby="trip-heading">
+        <div class="card-head">
+          <svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l4 4-4 2-4-2 4-4z" fill="#e3b73a"/></svg>
+          <h2 id="trip-heading">Trip Details</h2>
+        </div>
+
+        <div class="row two-cols">
+          <div>
+            <label for="departureCity" class="label">Departure City</label>
+            <input id="departureCity" name="departureCity" type="text" placeholder="City, Country" required aria-required="true">
+          </div>
+          <div>
+            <label for="departureDate" class="label">Departure Date</label>
+            <input id="departureDate" name="departureDate" type="date" required aria-required="true">
+          </div>
+        </div>
+
+        <div class="row two-cols">
+          <div>
+            <label for="arrivalCity" class="label">Arrival City</label>
+            <input id="arrivalCity" name="arrivalCity" type="text" placeholder="City, Country" required aria-required="true">
+          </div>
+          <div>
+            <label for="arrivalDate" class="label">Arrival Date</label>
+            <input id="arrivalDate" name="arrivalDate" type="date" required aria-required="true">
+          </div>
+        </div>
+
+        <label for="tripNotes" class="label">Additional Trip Details (Optional)</label>
+        <textarea id="tripNotes" name="tripNotes" rows="3" placeholder="Any layovers or additional stops along the way?"></textarea>
+
+        <label class="label">Upload Travel Ticket <span class="req">*</span></label>
+        <div class="upload" id="ticketUpload" data-maxbytes="5242880" data-accept=".pdf,image/png,image/jpeg" aria-describedby="ticketHint">
+          <input id="travelTicket" name="travelTicket" type="file" accept=".pdf,image/png,image/jpeg" required aria-required="true">
+          <div class="upload-inner">
+            <svg class="upload-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9" stroke="#e3b73a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke="#e3b73a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <strong>Click to upload your ticket</strong>
+              <div id="ticketHint" class="hint">PDF, PNG, JPG up to 5MB</div>
+            </div>
+          </div>
+          <div class="upload-preview" id="ticketPreview" aria-live="polite"></div>
+        </div>
+
+        <div class="form-errors" id="tripErrors" aria-live="polite"></div>
+      </section>
+
+      <!-- Delivery Preferences -->
+      <section class="card" aria-labelledby="prefs-heading">
+        <div class="card-head">
+          <svg class="icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7H3z" fill="#e3b73a"/></svg>
+          <h2 id="prefs-heading">Delivery Preferences</h2>
+        </div>
+
+        <p class="muted">What types of items are you willing to carry? <span class="req">*</span></p>
+        <div id="carryTypes" class="category-grid" role="group" aria-label="Types of items you can carry">
+          <button type="button" class="cat-tile" data-value="Electronics">📱<span>Electronics</span></button>
+          <button type="button" class="cat-tile" data-value="Documents">📄<span>Documents</span></button>
+          <button type="button" class="cat-tile" data-value="Clothing">👗<span>Clothing</span></button>
+          <button type="button" class="cat-tile" data-value="Gifts">🎁<span>Gifts</span></button>
+          <button type="button" class="cat-tile" data-value="Food">🍱<span>Food Items</span></button>
+          <button type="button" class="cat-tile" data-value="Books">📚<span>Books</span></button>
+          <button type="button" class="cat-tile" data-value="Camera">🎥<span>Camera/Video</span></button>
+          <button type="button" class="cat-tile" data-value="Audio">🎧<span>Audio Gear</span></button>
+          <button type="button" class="cat-tile" data-value="Accessories">👜<span>Accessories</span></button>
+          <button type="button" class="cat-tile" data-value="Medical">💊<span>Medical Items</span></button>
+        </div>
+        <input type="hidden" id="carryInput" name="carryTypes" aria-hidden="true">
+
+        <div class="row two-cols">
+          <div>
+            <label for="maxWeight" class="label">Maximum Weight You Can Carry (kg)</label>
+            <input id="maxWeight" name="maxWeight" type="number" min="0.1" max="100" step="0.1" placeholder="e.g., 5" required aria-required="true">
+            <div class="hint small">Consider airline baggage restrictions when setting this limit</div>
+          </div>
+          <div>
+            <label for="pricePerKg" class="label">Your Price per kg ($)</label>
+            <input id="pricePerKg" name="pricePerKg" type="number" min="1" max="500" step="0.5" placeholder="e.g., 15" required aria-required="true">
+            <div class="hint small">Recommended range: $10–20/kg for international trips</div>
+          </div>
+        </div>
+
+        <label for="prefNotes" class="label">Additional Notes (Optional)</label>
+        <textarea id="prefNotes" name="prefNotes" rows="3" placeholder="Any special conditions, preferences, or requirements..."></textarea>
+
+        <div class="form-errors" id="prefsErrors" aria-live="polite"></div>
+      </section>
+
+      <!-- Confirmation & Info -->
+      <section class="card">
+        <label class="checkbox">
+          <input id="confirmResponsible" name="confirmResponsible" type="checkbox" required aria-required="true">
+          <span>I confirm I am responsible for the items I accept to carry</span>
+        </label>
+
+        <div class="info-box">
+          <strong>Important Information</strong>
+          <ul>
+            <li>You will undergo ID verification before your first delivery</li>
+            <li>Payment is held securely and released after delivery confirmation</li>
+            <li>You can decline any delivery request that doesn't suit you</li>
+            <li>Always check items before accepting them</li>
+            <li>Insurance coverage is included for verified items</li>
+          </ul>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn outline" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn gold" id="postBtn" disabled aria-disabled="true">Post Your Trip</button>
+        </div>
+
+        <div class="form-errors" id="submitErrors" aria-live="assertive"></div>
+      </section>
+    </form>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-row">
+            <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 4.6L19 8l-4.9 2.8L12 15l-2.1-4.2L5 8l5.1-1.4L12 2z" fill="#e3b73a"/></svg>
+            <span class="brand-text light">TRAVIX</span>
+          </div>
+          <p class="muted">Connecting senders with travelers for affordable, secure deliveries worldwide.</p>
+        </div>
+
+        <nav>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">How it Works</a></li>
+            <li><a href="#">Send Items</a></li>
+            <li><a href="#">Become a Traveler</a></li>
+            <li><a href="#">Price Calculator</a></li>
+          </ul>
+        </nav>
+
+        <nav>
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Safety Guidelines</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h4>Contact Us</h4>
+          <div class="contact-item"><span class="icon">✉️</span><a href="mailto:support@travix.com">support@travix.com</a></div>
+          <div class="contact-item"><span class="icon">📞</span><a href="tel:+15551234567">+1 (555) 123-4567</a></div>
+          <div class="contact-item"><span class="icon">📍</span><address>123 Travel Street<br>New York, NY 10001</address></div>
+        </div>
+      </div>
+
+      <hr class="sep" />
+
+      <div class="footer-bottom">
+        <p class="tiny">© 2025 Travix. All rights reserved.</p>
+        <div class="tiny links">
+          <a href="#">Cookie Policy</a>
+          <a href="#">Security</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="become-traveler.js" defer></script>
+</body>
+</html>

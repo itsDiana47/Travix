@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travix — Traveler Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="travelerProfile.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Travix home">
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 4.6L19 8l-4.9 2.8L12 15l-2.1-4.2L5 8l5.1-1.4L12 2z" fill="#e3b73a"/></svg>
+        <span class="brand-text">TRAVIX</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">How it Works</a></li>
+          <li><a href="#">Calculator</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="link-muted" href="#">Log In</a>
+        <a class="btn primary" href="#">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main" role="main">
+    <!-- Profile header card -->
+    <section class="profile-card card" aria-labelledby="profile-name">
+      <div class="profile-left">
+        <img class="avatar" src="https://via.placeholder.com/96" alt="User avatar">
+      </div>
+
+      <div class="profile-mid">
+        <div class="name-row">
+          <h1 id="profile-name">John Doe</h1>
+          <span class="badge verified" aria-hidden="true">Verified</span>
+        </div>
+        <div class="meta">@johndoe · New York, USA</div>
+
+        <div class="rating">
+          <span class="star">★</span>
+          <strong>4.9</strong>
+          <span class="muted"> (47 reviews)</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong>23</strong><span>Deliveries</span></div>
+          <div class="stat"><strong>15</strong><span>Items Sent</span></div>
+          <div class="stat"><strong>3</strong><span>Ongoing</span></div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="btn outline">Edit Profile</button>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tabs-wrap" aria-label="Profile sections">
+      <div role="tablist" aria-label="Profile tabs" class="tabs" id="profileTabs">
+        <button role="tab" aria-selected="true" aria-controls="panel-profile" id="tab-profile" tabindex="0">Profile</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-verification" id="tab-verification" tabindex="-1">Verification</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-preferences" id="tab-preferences" tabindex="-1">Preferences</button>
+        <button role="tab" aria-selected="false" aria-controls="panel-activity" id="tab-activity" tabindex="-1">Activity</button>
+      </div>
+
+      <!-- Tab panels -->
+      <section id="panel-profile" role="tabpanel" aria-labelledby="tab-profile" class="tab-panel" tabindex="0">
+        <div class="card">
+          <h2>Reviews & Ratings</h2>
+
+          <ul class="reviews">
+            <li class="review">
+              <img class="r-avatar" src="https://via.placeholder.com/40" alt="">
+              <div class="r-body">
+                <div class="r-meta"><strong>Sarah Johnson</strong> · <span class="muted">Dec 2024</span></div>
+                <p>Excellent service! Item arrived safely and on time. Highly recommend!</p>
+              </div>
+              <div class="r-stars" aria-hidden="true">★★★★★</div>
+            </li>
+
+            <li class="review">
+              <img class="r-avatar" src="https://via.placeholder.com/40" alt="">
+              <div class="r-body">
+                <div class="r-meta"><strong>Michael Chen</strong> · <span class="muted">Nov 2024</span></div>
+                <p>Very professional and reliable. Great communication throughout.</p>
+              </div>
+              <div class="r-stars" aria-hidden="true">★★★★★</div>
+            </li>
+
+            <li class="review">
+              <img class="r-avatar" src="https://via.placeholder.com/40" alt="">
+              <div class="r-body">
+                <div class="r-meta"><strong>Rami Wilson</strong> · <span class="muted">Nov 2024</span></div>
+                <p>Good experience overall. Delivery was smooth.</p>
+              </div>
+              <div class="r-stars" aria-hidden="true">★★★★☆</div>
+            </li>
+          </ul>
+
+          <h3>About</h3>
+          <p class="muted">Experienced traveler and reliable delivery partner. I frequently travel between New York and London for business, and I'm happy to help others by carrying items along my route. Safety and timely delivery are my top priorities.</p>
+        </div>
+      </section>
+
+      <section id="panel-verification" role="tabpanel" aria-labelledby="tab-verification" class="tab-panel hidden" tabindex="0">
+        <div class="card">
+          <h2>Verification Status</h2>
+
+          <ul class="verify-list">
+            <li class="verify-item">
+              <div class="v-left">
+                <span class="v-ico">🪪</span>
+                <div>
+                  <strong>Identity Verified</strong>
+                  <div class="muted">Government ID confirmed</div>
+                </div>
+              </div>
+              <div class="v-right"><span class="pill success">Verified</span></div>
+            </li>
+
+            <li class="verify-item">
+              <div class="v-left">
+                <span class="v-ico">✉️</span>
+                <div>
+                  <strong>Email Verified</strong>
+                  <div class="muted">john.doe@email.com</div>
+                </div>
+              </div>
+              <div class="v-right"><span class="pill success">Verified</span></div>
+            </li>
+
+            <li class="verify-item">
+              <div class="v-left">
+                <span class="v-ico">📱</span>
+                <div>
+                  <strong>Phone Verified</strong>
+                  <div class="muted">+1 (555) 123-4567</div>
+                </div>
+              </div>
+              <div class="v-right"><span class="pill success">Verified</span></div>
+            </li>
+
+            <li class="verify-item">
+              <div class="v-left">
+                <span class="v-ico">🔒</span>
+                <div>
+                  <strong>Background Check</strong>
+                  <div class="muted">Optional enhanced security</div>
+                </div>
+              </div>
+              <div class="v-right"><button class="btn outline small">Complete</button></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="panel-preferences" role="tabpanel" aria-labelledby="tab-preferences" class="tab-panel hidden" tabindex="0">
+        <div class="card">
+          <h2>Delivery Preferences</h2>
+
+          <div class="prefs-row">
+            <div>
+              <div class="muted">Accepted Item Types</div>
+              <div class="chips">
+                <span class="chip">Electronics</span>
+                <span class="chip">Documents</span>
+                <span class="chip">Clothing</span>
+                <span class="chip">Gifts</span>
+              </div>
+            </div>
+
+            <div class="prefs-stats">
+              <div><strong>Maximum Weight</strong><div class="muted">5 kg per delivery</div></div>
+              <div style="margin-top:8px;"><strong>Price per kg</strong><div class="muted">$15.00</div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px">
+            <div class="muted">Frequent Routes</div>
+            <ul class="routes">
+              <li class="route">✈️ New York → London</li>
+              <li class="route">✈️ London → Paris</li>
+            </ul>
+            <div style="margin-top:14px">
+              <button class="btn primary">Update Preferences</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="panel-activity" role="tabpanel" aria-labelledby="tab-activity" class="tab-panel hidden" tabindex="0">
+        <div class="card">
+          <h2>Recent Activity</h2>
+
+          <ul class="activity-list">
+            <li class="activity-item">
+              <div class="a-left">📦</div>
+              <div class="a-main">
+                <div class="a-title">Delivered package to Sarah Johnson</div>
+                <div class="muted">London, UK · 2 days ago</div>
+              </div>
+              <div class="a-right"><span class="pill success">Completed</span></div>
+            </li>
+
+            <li class="activity-item">
+              <div class="a-left">🛫</div>
+              <div class="a-main">
+                <div class="a-title">Posted new trip: Paris → Berlin</div>
+                <div class="muted">Departure: Dec 20, 2024</div>
+              </div>
+              <div class="a-right"><span class="pill dark">Active</span></div>
+            </li>
+
+            <li class="activity-item">
+              <div class="a-left">📦</div>
+              <div class="a-main">
+                <div class="a-title">Sent package via Michael Chen</div>
+                <div class="muted">Tokyo, Japan · 5 days ago</div>
+              </div>
+              <div class="a-right"><span class="pill warn">In Transit</span></div>
+            </li>
+
+            <li class="activity-item">
+              <div class="a-left">⭐</div>
+              <div class="a-main">
+                <div class="a-title">Received 5-star review from Emma Wilson</div>
+                <div class="muted">1 week ago</div>
+              </div>
+              <div class="a-right"></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Floating actions -->
+  <div class="floating-actions" aria-hidden="true">
+    <button class="pill small">View Profile</button>
+    <button class="pill small gold">Admin Dashboard</button>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-row">
+            <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 4.6L19 8l-4.9 2.8L12 15l-2.1-4.2L5 8l5.1-1.4L12 2z" fill="#e3b73a"/></svg>
+            <span class="brand-text light">TRAVIX</span>
+          </div>
+          <p class="muted">Connecting senders with travelers for affordable, secure deliveries worldwide.</p>
+        </div>
+
+        <nav>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">How it Works</a></li>
+            <li><a href="#">Send Items</a></li>
+            <li><a href="#">Become a Traveler</a></li>
+            <li><a href="#">Price Calculator</a></li>
+          </ul>
+        </nav>
+
+        <nav>
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Safety Guidelines</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h4>Contact Us</h4>
+          <div class="contact-item"><span class="icon">✉️</span><a href="mailto:support@travix.com">support@travix.com</a></div>
+          <div class="contact-item"><span class="icon">📞</span><a href="tel:+15551234567">+1 (555) 123-4567</a></div>
+          <div class="contact-item"><span class="icon">📍</span><address>123 Travel Street<br>New York, NY 10001</address></div>
+        </div>
+      </div>
+
+      <hr class="sep" />
+
+      <div class="footer-bottom">
+        <p class="tiny">© 2025 Travix. All rights reserved.</p>
+        <div class="tiny links">
+          <a href="#">Cookie Policy</a>
+          <a href="#">Security</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="traveler-dashboard.js" defer></script>
+</body>
+</html>

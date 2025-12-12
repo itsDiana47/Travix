@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travix — Price Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="calculator-styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Travix home">
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 4.6L19 8l-4.9 2.8L12 15l-2.1-4.2L5 8l5.1-1.4L12 2z" fill="#e3b73a"/></svg>
+        <span class="brand-text">TRAVIX</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">How it Works</a></li>
+          <li><a class="active" href="#">Calculator</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="link-muted" href="#">Log In</a>
+        <a class="btn primary" href="#">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero small">
+      <div class="container">
+        <div class="hero-title-row">
+          <span class="pill"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h18v18H3z" fill="#e3b73a"/></svg> Price Calculator</span>
+          <p class="hero-sub">Estimate delivery costs and earnings instantly. See how much you’ll save as a sender or earn as a traveler.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="calculator-section">
+      <div class="container calc-grid">
+        <!-- Left: Form -->
+        <form class="card form-card" id="calcForm" oninput="updateCalc(event)" aria-labelledby="calc-heading">
+          <h2 id="calc-heading">Calculate Your Delivery</h2>
+
+          <label for="weight">Item Weight (kg)</label>
+          <input id="weight" name="weight" type="number" min="0.5" max="50" step="0.1" value="5" aria-describedby="weightMinMax">
+          <div class="minmax" id="weightMinMax"><span>Min: 0.5 kg</span><span>Max: 50 kg</span></div>
+          <div class="range-track" aria-hidden="true"><div style="width:10%"></div></div>
+
+          <label for="pricePerKg" class="mt">Price per kg ($)</label>
+          <input id="pricePerKg" name="pricePerKg" type="number" min="5" max="50" step="0.5" value="15" aria-describedby="priceMinMax">
+          <div class="minmax" id="priceMinMax"><span>Min: $5/kg</span><span>Max: $50/kg</span></div>
+          <div class="range-track" aria-hidden="true"><div style="width:30%"></div></div>
+
+          <p class="tip">💡 Tip: Average market rate is $10–20 per kg for international deliveries. Compare this to traditional shipping which can cost $40–80 per kg!</p>
+        </form>
+
+        <!-- Right: Result cards -->
+        <aside class="results">
+          <div class="card result-card dark" aria-live="polite" aria-atomic="true">
+            <div class="result-header">
+              <div class="badge">$</div>
+              <div class="result-title">Estimated Total Balance</div>
+            </div>
+            <div class="result-amount" id="totalAmount">$75.00</div>
+            <div class="result-sub" id="totalBreak">5 kg × $15/kg</div>
+
+            <div class="floating-buttons">
+              <button class="small-btn">View Profile</button>
+              <button class="small-btn alt">Admin Dashboard</button>
+            </div>
+          </div>
+
+          <div class="card result-card gold">
+            <div class="result-header">
+              <div class="badge dark">⬆</div>
+              <div class="result-title">Traveler Earnings</div>
+            </div>
+            <div class="result-amount" id="travelerAmount">$63.75</div>
+            <div class="result-sub">You keep 85% of the total price</div>
+          </div>
+
+          <div class="card result-card light">
+            <div class="result-header">
+              <div class="badge light-ico">🔒</div>
+              <div class="result-title">Travix Platform Fee</div>
+            </div>
+            <div class="result-amount small" id="feeAmount">$11.25</div>
+            <div class="result-sub">15% service charge — covers insurance & platform maintenance</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Comparison panel -->
+    <section class="compare-section">
+      <div class="container">
+        <div class="compare-card card">
+          <h3 class="center">Compare with Traditional Shipping</h3>
+
+          <div class="compare-grid">
+            <div class="compare-item">
+              <div class="compare-title">Travix</div>
+              <div class="compare-price" id="compareTravix">$75.00</div>
+              <div class="compare-note">For 5 kg</div>
+            </div>
+
+            <div class="compare-item">
+              <div class="compare-title">Express Courier</div>
+              <div class="compare-price red" id="compareExpress">$225.00</div>
+              <div class="compare-note">Traditional service</div>
+            </div>
+
+            <div class="compare-item highlight">
+              <div class="compare-title">You Save</div>
+              <div class="compare-price gold" id="compareSave">$150.00</div>
+              <div class="compare-note">67% savings!</div>
+            </div>
+          </div>
+
+          <p class="center muted">Ready to save money or earn extra income?</p>
+          <div class="center cta-row">
+            <a class="btn primary" href="#">Send an Item</a>
+            <a class="btn gold" href="#">Become a Traveler</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="grid four-col">
+        <div>
+          <div class="brand-row">
+            <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 4.6L19 8l-4.9 2.8L12 15l-2.1-4.2L5 8l5.1-1.4L12 2z" fill="#e3b73a"/></svg>
+            <span class="brand-text light">TRAVIX</span>
+          </div>
+          <p class="muted">Connecting senders with travelers for affordable, secure deliveries worldwide.</p>
+          <div class="social">
+            <a class="social-btn" href="#" aria-label="Facebook">f</a>
+            <a class="social-btn" href="#" aria-label="Twitter">t</a>
+            <a class="social-btn" href="#" aria-label="Instagram">●</a>
+            <a class="social-btn" href="#" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+
+        <nav>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">How it Works</a></li>
+            <li><a href="#">Send Items</a></li>
+            <li><a href="#">Become a Traveler</a></li>
+            <li><a href="#">Price Calculator</a></li>
+          </ul>
+        </nav>
+
+        <nav>
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Safety Guidelines</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h4>Contact Us</h4>
+          <div class="contact-item"><span class="icon">✉️</span><a href="mailto:support@travix.com">support@travix.com</a></div>
+          <div class="contact-item"><span class="icon">📞</span><a href="tel:+15551234567">+1 (555) 123-4567</a></div>
+          <div class="contact-item"><span class="icon">📍</span><address>123 Travel Street<br>New York, NY 10001</address></div>
+        </div>
+      </div>
+
+      <hr class="sep" />
+
+      <div class="footer-bottom">
+        <p class="tiny">© 2025 Travix. All rights reserved.</p>
+        <div class="tiny links">
+          <a href="#">Cookie Policy</a>
+          <a href="#">Security</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Calculator logic
+    const weightInput = document.getElementById('weight');
+    const priceInput = document.getElementById('pricePerKg');
+    const totalAmountEl = document.getElementById('totalAmount');
+    const travelerAmountEl = document.getElementById('travelerAmount');
+    const feeAmountEl = document.getElementById('feeAmount');
+    const totalBreakEl = document.getElementById('totalBreak');
+    const compareTravixEl = document.getElementById('compareTravix');
+    const compareExpressEl = document.getElementById('compareExpress');
+    const compareSaveEl = document.getElementById('compareSave');
+
+    function formatMoney(n){
+      return new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'}).format(n);
+    }
+
+    function computeTotals(){
+      const weight = Math.max(0.5, Math.min(50, parseFloat(weightInput.value) || 0.5));
+      const price = Math.max(5, Math.min(50, parseFloat(priceInput.value) || 5));
+      const total = weight * price;
+      const fee = total * 0.15; // 15%
+      const traveler = total - fee; // 85%
+      // Traditional express courier estimate (example): $45/kg
+      const expressPerKg = 45;
+      const expressTotal = weight * expressPerKg;
+      const savings = expressTotal - total;
+
+      totalAmountEl.textContent = formatMoney(total);
+      travelerAmountEl.textContent = formatMoney(traveler);
+      feeAmountEl.textContent = formatMoney(fee);
+      totalBreakEl.textContent = `${weight} kg × ${formatMoney(price)}/kg`;
+
+      compareTravixEl.textContent = formatMoney(total);
+      compareExpressEl.textContent = formatMoney(expressTotal);
+      compareSaveEl.textContent = formatMoney(Math.max(0, savings));
+    }
+
+    function updateCalc(e){
+      // Ensure input clamping
+      if(e && e.target){
+        const t = e.target;
+        if(t.id === 'weight'){
+          if(t.value === '') t.value = 0.5;
+        }
+        if(t.id === 'pricePerKg'){
+          if(t.value === '') t.value = 5;
+        }
+      }
+      computeTotals();
+    }
+
+    // init
+    computeTotals();
+  </script>
+</body>
+</html>
