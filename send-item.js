@@ -234,15 +234,8 @@ function submitForm(formData, submitBtn, originalText) {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
         
-        // Show success message and redirect to payment
-        showSuccess('Request submitted successfully! Redirecting to payment...', () => {
-            window.location.href = 'payment.html';
-        });
-        
-        // Auto-redirect after 2 seconds
-        setTimeout(() => {
-            window.location.href = 'payment.html';
-        }, 2000);
+        // Show matching animation
+        showMatchingAnimation();
     }, 2000);
 }
 
@@ -349,3 +342,292 @@ function scrollToError() {
 sendItemForm?.addEventListener('invalid', scrollToError, true);
 
 console.log('Send Item Page Loaded Successfully');
+
+// Matching Animation Function
+function showMatchingAnimation() {
+    const modalHTML = `
+        <div class="modal-overlay active" id="matchingModal" style="background: rgba(255, 255, 255, 0.98); z-index: 10000;">
+            <div class="matching-container">
+                <div class="matching-content">
+                    <div class="matching-icon">
+                        <img src="travix-logo.png" alt="Travix Logo" style="width: 100px; height: auto;" class="logo-spin"/>
+                    </div>
+                    <h2 class="matching-title">Finding Perfect Match...</h2>
+                    <p class="matching-subtitle">Searching for the best travelers for your route</p>
+                    
+                    <div class="matching-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="progress-steps">
+                            <div class="step" data-step="1">
+                                <div class="step-icon">1</div>
+                                <span>Request Received</span>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-icon">2</div>
+                                <span>Matching Travelers</span>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-icon">3</div>
+                                <span>Preparing Payment</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="matching-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="travelersFound">0</div>
+                            <div class="stat-label">Travelers Found</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="routesChecked">0</div>
+                            <div class="stat-label">Routes Checked</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Add CSS for matching animation
+    if (!document.getElementById('matchingStyles')) {
+        const style = document.createElement('style');
+        style.id = 'matchingStyles';
+        style.textContent = `
+            .matching-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                padding: 2rem;
+            }
+            
+            .matching-content {
+                text-align: center;
+                max-width: 600px;
+            }
+            
+            .matching-icon {
+                margin-bottom: 2rem;
+                animation: float 3s ease-in-out infinite;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+            }
+            
+            .logo-spin {
+                animation: pulse-scale 2s ease-in-out infinite;
+                filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+            }
+            
+            @keyframes pulse-scale {
+                0%, 100% { 
+                    transform: scale(1);
+                }
+                50% { 
+                    transform: scale(1.1);
+                }
+            }
+            
+            .matching-title {
+                font-size: 2rem;
+                color: #0A1A2F;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+            }
+            
+            .matching-subtitle {
+                font-size: 1.1rem;
+                color: #6B7280;
+                margin-bottom: 3rem;
+            }
+            
+            .matching-progress {
+                margin-bottom: 3rem;
+            }
+            
+            .progress-bar {
+                width: 100%;
+                height: 6px;
+                background: #E5E7EB;
+                border-radius: 10px;
+                overflow: hidden;
+                margin-bottom: 2rem;
+            }
+            
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #D4AF37 0%, #F4C542 100%);
+                width: 0%;
+                animation: fillProgress 3s ease-out forwards;
+            }
+            
+            @keyframes fillProgress {
+                0% { width: 0%; }
+                33% { width: 33%; }
+                66% { width: 66%; }
+                100% { width: 100%; }
+            }
+            
+            .progress-steps {
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+            
+            .step {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                opacity: 0.4;
+                transition: all 0.5s ease;
+            }
+            
+            .step-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: #E5E7EB;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #6B7280;
+                font-weight: 700;
+                font-size: 1.2rem;
+                transition: all 0.5s ease;
+            }
+            
+            .step.active {
+                opacity: 1;
+            }
+            
+            .step.active .step-icon {
+                background: #D4AF37;
+                color: white;
+                transform: scale(1.1);
+            }
+            
+            .step.loading .step-icon {
+                background: #D4AF37;
+                color: white;
+                animation: pulse-step 1s ease-in-out infinite;
+            }
+            
+            @keyframes pulse-step {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.15); }
+            }
+            
+            .step span {
+                font-size: 0.85rem;
+                color: #6B7280;
+                font-weight: 500;
+            }
+            
+            .step.active span {
+                color: #0A1A2F;
+                font-weight: 600;
+            }
+            
+            .matching-stats {
+                display: flex;
+                gap: 3rem;
+                justify-content: center;
+            }
+            
+            .stat-item {
+                text-align: center;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #D4AF37;
+                margin-bottom: 0.25rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+                color: #6B7280;
+            }
+            
+            @media (max-width: 768px) {
+                .matching-title {
+                    font-size: 1.5rem;
+                }
+                .progress-steps {
+                    gap: 0.5rem;
+                }
+                .step span {
+                    font-size: 0.75rem;
+                }
+                .matching-stats {
+                    flex-direction: column;
+                    gap: 1.5rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Animate steps 1 -> 2 -> 3
+    const steps = document.querySelectorAll('.step');
+    
+    // Step 1: Immediate
+    steps[0].classList.add('active');
+    
+    // Step 2: After 1 second
+    setTimeout(() => {
+        steps[0].classList.remove('loading');
+        steps[1].classList.add('active', 'loading');
+    }, 1000);
+    
+    // Step 3: After 2.5 seconds
+    setTimeout(() => {
+        steps[1].classList.remove('loading');
+        steps[2].classList.add('active');
+    }, 2500);
+
+    // Animate numbers
+    animateNumbers();
+
+    // Redirect after 3.5 seconds
+    setTimeout(() => {
+        window.location.href = 'payment.html';
+    }, 3500);
+}
+
+function animateNumbers() {
+    const travelersEl = document.getElementById('travelersFound');
+    const routesEl = document.getElementById('routesChecked');
+    
+    let travelers = 0;
+    let routes = 0;
+    const maxTravelers = 12;
+    const maxRoutes = 47;
+    
+    const interval = setInterval(() => {
+        if (travelers < maxTravelers) {
+            travelers += Math.floor(Math.random() * 3) + 1;
+            if (travelers > maxTravelers) travelers = maxTravelers;
+            travelersEl.textContent = travelers;
+        }
+        
+        if (routes < maxRoutes) {
+            routes += Math.floor(Math.random() * 5) + 2;
+            if (routes > maxRoutes) routes = maxRoutes;
+            routesEl.textContent = routes;
+        }
+        
+        if (travelers >= maxTravelers && routes >= maxRoutes) {
+            clearInterval(interval);
+        }
+    }, 100);
+}

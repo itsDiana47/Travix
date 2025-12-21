@@ -10,23 +10,18 @@ if (mobileMenuToggle) {
     });
 }
 
-// Form Validation
+// Form Validation with Real API
 const signinForm = document.getElementById('signinForm');
 
 if (signinForm) {
-    signinForm.addEventListener('submit', (e) => {
+    signinForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const emailOrUsername = document.getElementById('email').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         
-        // Demo user credentials
-        const demoUsername = 'abd123';
-        const demoEmail = 'john@example.com';
-        const demoPassword = '123456';
-        
         // Basic validation
-        if (!emailOrUsername || !password) {
+        if (!email || !password) {
             showError('Please fill in all fields');
             return;
         }
@@ -42,15 +37,21 @@ if (signinForm) {
         submitBtn.textContent = 'Signing In...';
         submitBtn.disabled = true;
         
-        // Simulate API call
-        setTimeout(() => {
-            // Check credentials (accept both email and username)
-            if ((emailOrUsername === demoUsername || emailOrUsername === demoEmail) && password === demoPassword) {
-                // Store user session
+        try {
+            // Real API call to Laravel backend
+            const data = await AuthAPI.login({ 
+                email: email, 
+                password: password 
+            });
+            
+            if (data.success) {
+                // Store user session with real data from API
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
                 localStorage.setItem('userLoggedIn', 'true');
-                localStorage.setItem('userName', 'John Doe');
-                localStorage.setItem('userEmail', 'john@example.com');
-                localStorage.setItem('userUsername', 'johndoe');
+                localStorage.setItem('userName', data.user.name);
+                localStorage.setItem('userEmail', data.user.email);
+                localStorage.setItem('userRole', data.user.role);
                 
                 // Show success and redirect
                 showSuccess('Sign in successful! Redirecting...');
@@ -69,15 +70,26 @@ if (signinForm) {
                         window.location.href = 'user-dashboard.html';
                     }
                 }, 1500);
-            } else {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Show error with demo credentials hint
-                showError('Invalid credentials. Try: abd123 or john@example.com with password: 123456');
             }
-        }, 1500);
+            
+        } catch (error) {
+            console.error('Login error:', error);
+            
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            // Show appropriate error message
+            let errorMessage = 'Login failed. Please try again.';
+            
+            if (error.message === 'Invalid credentials') {
+                errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+            
+            showError(errorMessage);
+        }
     });
 }
 
@@ -214,4 +226,4 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-console.log('Sign In Page Loaded Successfully');
+console.log('✅ Sign In Page Loaded - API Ready');

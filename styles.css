@@ -683,22 +683,22 @@ body {
 /* CTA Section */
 .cta-section {
     padding: 80px 0;
-    background: var(--primary-color);
-    color: var(--secondary-color);
+    background: #D4AF37;
+    color: #0A1A2F;
     text-align: center;
 }
 
 .cta-section h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: var(--secondary-color);
+    color: #0A1A2F;
 }
 
 .cta-section p {
     max-width: 700px;
     margin: 0 auto 2rem;
     font-size: 1.1rem;
-    color: var(--secondary-color);
+    color: #0A1A2F;
     opacity: 0.9;
 }
 
@@ -1419,8 +1419,13 @@ body {
 }
 
 .traveler-card {
-    background: var(--primary-color);
+    background: white;
     color: var(--secondary-color);
+}
+
+/* Calculator page - Traveler Earnings Card (keep gold) */
+.calculator-page .traveler-card {
+    background: #D4AF37;
 }
 
 .result-header {
@@ -1504,6 +1509,15 @@ body {
     background: #F9FAFB;
     padding: 2rem;
     border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.comparison-card:hover {
+    transform: translateY(-8px);
+    border-color: #D4AF37;
+    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.2);
 }
 
 .comparison-card h3 {
@@ -1533,8 +1547,14 @@ body {
 }
 
 .savings-comparison {
-    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-    border: 2px solid var(--primary-color);
+    background: white;
+    border: 2px solid transparent;
+}
+
+.savings-comparison:hover {
+    transform: translateY(-8px);
+    border-color: #D4AF37;
+    box-shadow: 0 12px 24px rgba(212, 175, 55, 0.2);
 }
 
 .cta-section-calc {
@@ -3609,6 +3629,10 @@ body {
     padding: 6rem 0;
     background: linear-gradient(135deg, #0f1a2e 0%, #0A1A2F 100%);
     color: var(--white);
+}
+
+.how-it-works-new .section-header-new h2 {
+    color: white;
 }
 
 .steps-container {
@@ -8999,4 +9023,460 @@ body {
     .particle-canvas {
         opacity: 0.6;
     }
+}
+
+/* ============================================
+   DELIVERY REQUESTS PAGE STYLES
+   ============================================ */
+
+.delivery-requests-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.header-content h1 {
+    font-size: 2.5rem;
+    color: #0A1A2F;
+    margin-bottom: 0.5rem;
+}
+
+.header-content .subtitle {
+    color: #6B7280;
+    font-size: 1.1rem;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 0.5rem;
+    background: #F3F4F6;
+    padding: 0.25rem;
+    border-radius: 50px;
+}
+
+.toggle-btn {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    background: transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #6B7280;
+    transition: all 0.3s;
+}
+
+.toggle-btn.active {
+    background: #D4AF37;
+    color: white;
+}
+
+.toggle-btn:hover:not(.active) {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.search-filter-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+}
+
+.search-box svg {
+    color: #9CA3AF;
+    flex-shrink: 0;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 0.95rem;
+    color: #0A1A2F;
+}
+
+.search-box input::placeholder {
+    color: #9CA3AF;
+}
+
+.filter-btn,
+.date-range-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #0A1A2F;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover,
+.date-range-btn:hover {
+    border-color: #D4AF37;
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.delivery-requests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.request-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.request-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: #D4AF37;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.category-badge.electronics {
+    background: #DBEAFE;
+    color: #1E40AF;
+}
+
+.category-badge.documents {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+.category-badge.gifts {
+    background: #FCE7F3;
+    color: #9F1239;
+}
+
+.category-badge.clothing {
+    background: #E0E7FF;
+    color: #3730A3;
+}
+
+.urgent-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    background: #FEF3C7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0A1A2F;
+    margin-bottom: 0.5rem;
+}
+
+.item-weight {
+    color: #6B7280;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.route-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid #E5E7EB;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.location {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.location svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.location .label {
+    font-size: 0.75rem;
+    color: #9CA3AF;
+    margin-bottom: 0.15rem;
+}
+
+.location .value {
+    font-size: 0.9rem;
+    color: #0A1A2F;
+    font-weight: 500;
+}
+
+.route-arrow {
+    color: #D4AF37;
+    font-size: 1.25rem;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.card-footer {
+    margin-top: auto;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.pickup-date {
+    font-size: 0.85rem;
+    color: #6B7280;
+}
+
+.pickup-date strong {
+    color: #0A1A2F;
+}
+
+.sender-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.sender-rating > span {
+    font-size: 0.75rem;
+    color: #9CA3AF;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.rating svg {
+    flex-shrink: 0;
+}
+
+.rating span {
+    font-weight: 600;
+    color: #0A1A2F;
+    font-size: 0.9rem;
+}
+
+.earning-section {
+    background: #FEF3C7;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.earning-label {
+    font-size: 0.85rem;
+    color: #92400E;
+    font-weight: 500;
+}
+
+.earning-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #D4AF37;
+}
+
+.accept-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: #D4AF37;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.accept-btn:hover {
+    background: #C4A137;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .delivery-requests-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
+
+    .view-toggle {
+        width: 100%;
+    }
+
+    .toggle-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .delivery-requests-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sender-rating {
+        align-items: flex-start;
+    }
+}
+
+/* Main Content Wrapper Fix */
+.main-content {
+    padding-top: 80px;
+    min-height: 100vh;
+}
+
+
+/* White Card for Total Earnings/Spent */
+.white-card {
+    background: white !important;
+    border: 2px solid #E5E7EB;
+}
+
+.white-card .stat-value-large {
+    color: #D4AF37 !important;
+}
+/* Password Strength Indicator */
+.password-strength {
+    margin-top: 0.5rem;
+}
+
+.password-strength-bar {
+    height: 4px;
+    background: #E5E7EB;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    width: 0%;
+}
+
+.password-strength-text {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+    color: #6B7280;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    margin: 1rem 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-top: 0.25rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    flex: 1;
+    color: #4B5563;
+}
+
+.checkbox-label a {
+    color: #F4C542;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.checkbox-label a:hover {
+    text-decoration: underline;
+}
+
+/* Select Dropdown */
+select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: #F4C542;
+    box-shadow: 0 0 0 3px rgba(244, 197, 66, 0.1);
 }

@@ -1,7 +1,7 @@
 // Mobile Menu Toggle for Sign Up Page
-const mobileMenuToggle = document.querySelector('.mobile-menu-toggle-dark');
-const navMenu = document.querySelector('.nav-menu-light');
-const navActions = document.querySelector('.nav-actions-light');
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+const navActions = document.querySelector('.nav-actions');
 
 if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener('click', () => {
@@ -10,21 +10,28 @@ if (mobileMenuToggle) {
     });
 }
 
-// Form Validation
+// Sign Up Form Handler with Real API
 const signupForm = document.getElementById('signupForm');
 
 if (signupForm) {
-    signupForm.addEventListener('submit', (e) => {
+    signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const username = document.getElementById('username').value;
+        // Get form values
+        const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
+        const role = document.getElementById('role')?.value || 'sender';
+        const termsAccepted = document.getElementById('terms')?.checked;
         
-        // Validation checks
-        if (username.length < 3) {
-            showError('Username must be at least 3 characters long');
+        // Clear previous errors
+        removeMessages();
+        
+        // Validation
+        if (!name || !email || !password || !confirmPassword) {
+            showError('Please fill in all required fields');
             return;
         }
         
@@ -33,8 +40,8 @@ if (signupForm) {
             return;
         }
         
-        if (password.length < 8) {
-            showError('Password must be at least 8 characters long');
+        if (password.length < 6) {
+            showError('Password must be at least 6 characters');
             return;
         }
         
@@ -43,35 +50,64 @@ if (signupForm) {
             return;
         }
         
-        // Check password strength
-        if (!isStrongPassword(password)) {
-            showError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+        if (termsAccepted === false) {
+            showError('Please accept the terms and conditions');
             return;
         }
         
         // Show loading state
-        const submitBtn = signupForm.querySelector('.btn-signin');
+        const submitBtn = signupForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Creating Account...';
         submitBtn.disabled = true;
         
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            // Call Laravel API
+            const data = await AuthAPI.register({
+                name: name,
+                email: email,
+                password: password,
+                password_confirmation: confirmPassword,
+                role: role,
+                phone: phone || ''
+            });
+            
+            if (data.success) {
+                // Save authentication data
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                localStorage.setItem('userLoggedIn', 'true');
+                localStorage.setItem('userName', data.user.name);
+                localStorage.setItem('userEmail', data.user.email);
+                localStorage.setItem('userRole', data.user.role);
+                
+                // Show success message
+                showSuccess('Account created successfully! Redirecting...');
+                
+                // Redirect to dashboard after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = 'user-dashboard.html';
+                }, 1500);
+            }
+            
+        } catch (error) {
+            console.error('Registration error:', error);
+            
             // Reset button
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
             
-            // Here you would normally handle the actual sign-up
-            console.log('Sign up attempted with:', { username, email, password });
-            
-            // Show success message
-            showSuccess('Account created successfully! Redirecting to sign in...');
-            
-            // Redirect after a short delay
-            setTimeout(() => {
-                window.location.href = 'signin.html';
-            }, 2000);
-        }, 1500);
+            // Show error messages
+            if (error.errors) {
+                // Show validation errors
+                const errorMessages = Object.values(error.errors).flat();
+                showError(errorMessages.join('<br>'));
+            } else if (error.message) {
+                showError(error.message);
+            } else {
+                showError('Registration failed. Please try again.');
+            }
+        }
     });
 }
 
@@ -81,43 +117,92 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-// Password strength validation
-function isStrongPassword(password) {
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-    return hasUpperCase && hasLowerCase && hasNumber;
+// Password strength indicator
+const passwordInput = document.getElementById('password');
+if (passwordInput) {
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const strength = calculatePasswordStrength(password);
+        updatePasswordStrengthUI(strength);
+    });
+}
+
+function calculatePasswordStrength(password) {
+    let strength = 0;
+    if (password.length >= 6) strength++;
+    if (password.length >= 10) strength++;
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+    if (/\d/.test(password)) strength++;
+    if (/[^a-zA-Z\d]/.test(password)) strength++;
+    return Math.min(strength, 4);
+}
+
+function updatePasswordStrengthUI(strength) {
+    const strengthBar = document.querySelector('.password-strength-bar');
+    const strengthText = document.querySelector('.password-strength-text');
+    
+    if (!strengthBar || !strengthText) return;
+    
+    const levels = ['Weak', 'Fair', 'Good', 'Strong'];
+    const colors = ['#EF4444', '#F59E0B', '#10B981', '#059669'];
+    
+    strengthBar.style.width = `${(strength / 4) * 100}%`;
+    strengthBar.style.backgroundColor = colors[strength - 1] || '#E5E7EB';
+    strengthText.textContent = levels[strength - 1] || '';
+}
+
+// Confirm password validation
+const confirmPasswordInput = document.getElementById('confirmPassword');
+if (confirmPasswordInput && passwordInput) {
+    confirmPasswordInput.addEventListener('input', function() {
+        if (this.value && this.value !== passwordInput.value) {
+            this.setCustomValidity('Passwords do not match');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+    
+    passwordInput.addEventListener('input', function() {
+        if (confirmPasswordInput.value) {
+            confirmPasswordInput.dispatchEvent(new Event('input'));
+        }
+    });
 }
 
 // Show error message
 function showError(message) {
-    // Remove any existing messages
     removeMessages();
     
     const errorDiv = document.createElement('div');
     errorDiv.className = 'form-message error-message';
-    errorDiv.textContent = message;
+    errorDiv.innerHTML = message;
     
-    const form = document.querySelector('.signin-form');
-    form.insertBefore(errorDiv, form.firstChild);
+    const form = document.querySelector('.signup-form') || document.querySelector('form');
+    if (form) {
+        form.insertBefore(errorDiv, form.firstChild);
+        
+        // Scroll to error
+        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
     
-    // Remove after 5 seconds
+    // Remove after 8 seconds
     setTimeout(() => {
         errorDiv.remove();
-    }, 5000);
+    }, 8000);
 }
 
 // Show success message
 function showSuccess(message) {
-    // Remove any existing messages
     removeMessages();
     
     const successDiv = document.createElement('div');
     successDiv.className = 'form-message success-message';
     successDiv.textContent = message;
     
-    const form = document.querySelector('.signin-form');
-    form.insertBefore(successDiv, form.firstChild);
+    const form = document.querySelector('.signup-form') || document.querySelector('form');
+    if (form) {
+        form.insertBefore(successDiv, form.firstChild);
+    }
 }
 
 // Remove all messages
@@ -126,96 +211,8 @@ function removeMessages() {
     messages.forEach(msg => msg.remove());
 }
 
-// Real-time password strength indicator
-const passwordInput = document.getElementById('password');
-if (passwordInput) {
-    passwordInput.addEventListener('input', function() {
-        const password = this.value;
-        let strength = 'Weak';
-        let color = '#EF4444';
-        
-        if (password.length >= 8) {
-            if (isStrongPassword(password)) {
-                strength = 'Strong';
-                color = '#10B981';
-            } else {
-                strength = 'Medium';
-                color = '#F59E0B';
-            }
-        }
-        
-        // Remove existing strength indicator
-        const existingIndicator = document.querySelector('.password-strength');
-        if (existingIndicator) {
-            existingIndicator.remove();
-        }
-        
-        // Add strength indicator if password is entered
-        if (password.length > 0) {
-            const indicator = document.createElement('div');
-            indicator.className = 'password-strength';
-            indicator.style.color = color;
-            indicator.style.fontSize = '0.875rem';
-            indicator.style.marginTop = '0.5rem';
-            indicator.textContent = `Password strength: ${strength}`;
-            this.parentElement.appendChild(indicator);
-        }
-    });
-}
-
-// Real-time password match validation
-const confirmPasswordInput = document.getElementById('confirmPassword');
-if (confirmPasswordInput) {
-    confirmPasswordInput.addEventListener('input', function() {
-        const password = document.getElementById('password').value;
-        const confirmPassword = this.value;
-        
-        // Remove existing match indicator
-        const existingIndicator = document.querySelector('.password-match');
-        if (existingIndicator) {
-            existingIndicator.remove();
-        }
-        
-        // Add match indicator if confirm password is entered
-        if (confirmPassword.length > 0) {
-            const indicator = document.createElement('div');
-            indicator.className = 'password-match';
-            indicator.style.fontSize = '0.875rem';
-            indicator.style.marginTop = '0.5rem';
-            
-            if (password === confirmPassword) {
-                indicator.style.color = '#10B981';
-                indicator.textContent = '✓ Passwords match';
-            } else {
-                indicator.style.color = '#EF4444';
-                indicator.textContent = '✗ Passwords do not match';
-            }
-            
-            this.parentElement.appendChild(indicator);
-        }
-    });
-}
-
-// Floating buttons functionality
-const calculatorBtn = document.querySelector('.calculator-btn');
-const adminBtn = document.querySelector('.admin-btn');
-
-if (calculatorBtn) {
-    calculatorBtn.addEventListener('click', () => {
-        console.log('Calculator clicked');
-        window.location.href = 'calculator.html';
-    });
-}
-
-if (adminBtn) {
-    adminBtn.addEventListener('click', () => {
-        console.log('Admin Access clicked');
-        window.location.href = 'admin.html';
-    });
-}
-
 // Add input focus effects
-const inputs = document.querySelectorAll('.form-group input');
+const inputs = document.querySelectorAll('.form-group input, .form-group select');
 inputs.forEach(input => {
     input.addEventListener('focus', function() {
         this.parentElement.classList.add('focused');
@@ -277,12 +274,20 @@ style.textContent = `
         color: #F4C542;
     }
     
-    .password-strength,
-    .password-match {
-        font-weight: 500;
+    .password-strength-bar {
+        height: 4px;
+        background: #E5E7EB;
+        border-radius: 2px;
+        margin-top: 0.5rem;
         transition: all 0.3s ease;
+    }
+    
+    .password-strength-text {
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        font-weight: 500;
     }
 `;
 document.head.appendChild(style);
 
-console.log('Sign Up Page Loaded Successfully');
+console.log('✅ Sign Up Page Loaded - API Ready');

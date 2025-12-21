@@ -38,7 +38,6 @@
                 <ul class="nav-menu">
                     <li><a href="#home">Home</a></li>
                     <li><a href="calculator.html">Calculator</a></li>
-                    <li><a href="#how-it-works">How it Works</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="help-center.html">Help</a></li>
                 </ul>
@@ -82,7 +81,16 @@
         <div class="container">
             <div class="hero-content-new">
                 <div class="hero-text-new animate-fade-in-up">
-                    <div class="hero-badge">🌍 The first platform of its kind in the Arab region</div>
+                    <div class="hero-badge">
+                        <svg width="24" height="16" viewBox="0 0 24 16" style="display: inline-block; margin-right: 0.5rem; vertical-align: middle;">
+                            <rect width="24" height="16" fill="#000000"/>
+                            <rect y="5.33" width="24" height="5.33" fill="#FFFFFF"/>
+                            <rect y="10.67" width="24" height="5.33" fill="#007A3D"/>
+                            <path d="M0 0L9 8L0 16V0Z" fill="#CE1126"/>
+                            <path d="M3 8L4.5 7.2L4.3 8.8L5.5 9.8L3.8 9.9L3 11.5L2.2 9.9L0.5 9.8L1.7 8.8L1.5 7.2L3 8Z" fill="#FFFFFF"/>
+                        </svg>
+                        The first platform of its kind in the Arab region
+                    </div>
                     <h1 class="hero-title-new">Send Items <span class="gradient-text">Globally</span> with Travelers</h1>
                     <p class="hero-description">Connect with verified travelers and send packages faster and cheaper than traditional shipping. Save up to 60% on international deliveries.</p>
                     <div class="hero-buttons-new">
@@ -476,112 +484,12 @@
         </div>
     </footer>
 
-    <!-- Floating Live Chat Button -->
-    <div class="live-chat-button" id="liveChatBtn">
-        <svg class="chat-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="white"/>
-            <circle cx="8" cy="10" r="1.5" fill="#D4AF37"/>
-            <circle cx="12" cy="10" r="1.5" fill="#D4AF37"/>
-            <circle cx="16" cy="10" r="1.5" fill="#D4AF37"/>
-        </svg>
-        <span class="chat-text">Chat</span>
-        <span class="chat-badge">1</span>
-    </div>
-
-    <!-- Live Chat Modal -->
-    <div class="live-chat-modal" id="liveChatModal">
-        <div class="chat-header">
-            <div class="chat-header-content">
-                <div class="chat-agent-avatar">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="16" cy="16" r="16" fill="#D4AF37"/>
-                        <circle cx="16" cy="13" r="5" fill="white"/>
-                        <path d="M8 26C8 22 11 19 16 19C21 19 24 22 24 26" stroke="white" stroke-width="2" fill="none"/>
-                    </svg>
-                </div>
-                <div class="chat-agent-info">
-                    <h4>Travix Support</h4>
-                    <p class="online-status">
-                        <span class="status-dot"></span>
-                        Online now
-                    </p>
-                </div>
-            </div>
-            <button class="chat-close-btn" id="closeChatBtn">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 5L5 15M5 5L15 15" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </button>
-        </div>
-        
-        <div class="chat-body" id="chatBody">
-            <div class="chat-welcome">
-                <div class="welcome-icon">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="24" cy="24" r="24" fill="#FEF3C7"/>
-                        <path d="M24 16V24L30 28" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <h3>Welcome to Travix! 👋</h3>
-                <p>How can we help you today?</p>
-            </div>
-            
-            <div class="quick-actions-chat">
-                <button class="quick-action-btn" onclick="sendQuickMessage('How does Travix work?')">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M9 6V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="9" cy="13" r="0.5" fill="currentColor"/>
-                    </svg>
-                    How does Travix work?
-                </button>
-                <button class="quick-action-btn" onclick="sendQuickMessage('How to send an item?')">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="4" y="6" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M4 10H14M9 6V14" stroke="currentColor" stroke-width="1.5"/>
-                    </svg>
-                    How to send an item?
-                </button>
-                <button class="quick-action-btn" onclick="sendQuickMessage('How to become a traveler?')">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="9" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M4 15C4 12 6 10 9 10C12 10 14 12 14 15" stroke="currentColor" stroke-width="1.5"/>
-                    </svg>
-                    How to become a traveler?
-                </button>
-                <button class="quick-action-btn" onclick="sendQuickMessage('Pricing information')">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M9 6V7M9 11V12M7 8.5C7 7.67 7.67 7 8.5 7H9.5C10.33 7 11 7.67 11 8.5C11 9.33 10.33 10 9.5 10H8.5C7.67 10 7 10.67 7 11.5C7 12.33 7.67 13 8.5 13H9.5C10.33 13 11 12.33 11 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    Pricing information
-                </button>
-            </div>
-            
-            <div class="chat-messages" id="chatMessages">
-                <!-- Messages will be added here dynamically -->
-            </div>
-        </div>
-        
-        <div class="chat-footer">
-            <div class="chat-input-wrapper">
-                <input type="text" id="chatInput" placeholder="Type your message..." />
-                <button class="send-btn" id="sendBtn">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-            <p class="chat-footer-text">Powered by Travix Support</p>
-        </div>
-    </div>
 
     <script src="preloader.js"></script>
     <script src="modal.js"></script>
     <script src="check-auth.js"></script>
     <script src="script.js"></script>
     <script src="navbar-auth.js"></script>
-    <script src="live-chat.js"></script>
     <script src="particle-animation.js"></script>
 </body>
 </html>

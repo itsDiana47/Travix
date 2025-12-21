@@ -79,16 +79,24 @@ const becomeTravelerBtn = document.querySelector('.btn-cta-secondary');
 if (sendItemBtn) {
     sendItemBtn.addEventListener('click', () => {
         // Check if user is logged in
-        // For now, redirect to signup
-        window.location.href = 'signup.html';
+        const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
+        if (isLoggedIn) {
+            window.location.href = 'send-item.html';
+        } else {
+            window.location.href = 'signup.html';
+        }
     });
 }
 
 if (becomeTravelerBtn) {
     becomeTravelerBtn.addEventListener('click', () => {
         // Check if user is logged in
-        // For now, redirect to signup
-        window.location.href = 'signup.html';
+        const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
+        if (isLoggedIn) {
+            window.location.href = 'become-traveler.html';
+        } else {
+            window.location.href = 'signup.html';
+        }
     });
 }
 
